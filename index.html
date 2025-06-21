@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMOD服务器加载界面</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-slideshow">
+        <!-- 背景幻灯片会通过JS动态添加 -->
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Mika服</h1>
+            <p class="subtitle">PGBreach模式</p>
+        </div>
+
+        <div class="cards-container">
+            <div class="card" id="rules">
+                <h2>游玩须知</h2>
+                <div class="card-content">
+                    <ul>
+                        <li>进服务器前需加群订阅合集模组方可正常游玩</li>
+                        <li>尊重其他玩家，禁止辱骂和骚扰</li>
+                        <li>请遵守群内规则文档上的规则</li>
+                        <li>游戏内可用!report或@加上空格对管理发消息</li>
+                        <li>祝您游戏愉快！</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" id="staff">
+                <h2>服务器主要人员</h2>
+                <div class="card-content">
+                    <div class="staff-member">
+                        <div class="staff-avatar">
+                            
+                        </div>
+                        <div class="staff-info">
+                            <h3>服主</h3>
+                            <p>玩家名称</p>
+                        </div>
+                    <!-- </div>
+                    <div class="staff-member">
+                        <div class="staff-avatar">
+                            <img src="https://i.imgur.com/example2.jpg" alt="管理员头像">
+                        </div>
+                        <div class="staff-info">
+                            <h3>管理员</h3>
+                            <p>玩家名称</p>
+                        </div>
+                    </div>
+                    <div class="staff-member">
+                        <div class="staff-avatar">
+                            <img src="https://i.imgur.com/example3.jpg" alt="技术支持头像">
+                        </div>
+                        <div class="staff-info">
+                            <h3>技术支持</h3>
+                            <p>玩家名称</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="intro">
+                <h2>服务器简介</h2>
+                <div class="card-content">
+                    <p>欢迎来到我们的GMOD服务器！这里有丰富多彩的游戏内容和友好的玩家社区。</p>
+                    <p>我们的服务器提供高质量的游戏体验</p>
+                    <p>无论你是新手还是老玩家，这里都能找到属于你的乐趣。</p>
+                </div>
+            </div>
+
+            <div class="card" id="qq-group">
+                <h2>QQ群</h2>
+                <div class="card-content">
+                    <div class="qr-code">
+                        <!-- 这里可以替换成实际的QQ群二维码图片URL -->
+                        <img src="https://i.miji.bid/2025/06/21/596dc1c26e327dd198d2ba9a012b8d79.png" alt="QQ群二维码">
+                    </div>
+                    <p>扫描二维码加入我们的QQ群</p>
+                    <p>群号：979657269</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-container">
+            <div class="loading-text">
+                <span>正在加载服务器资源</span>
+                <span class="loading-percentage">0%</span>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-info">请耐心等待，加载时间取决于您的网络速度和硬件配置</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
