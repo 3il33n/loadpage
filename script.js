@@ -1,10 +1,7 @@
 // 背景幻灯片图片数组
 const backgroundImages = [
-    'https://i.miji.bid/2025/06/21/654724ab92d10245c2290a5e86b87352.png', // 示例图片1
-    'https://i.miji.bid/2025/06/21/963e7b6df6898be5064394f4032dbeb2.jpeg', // 示例图片2
-    'https://i.miji.bid/2025/06/21/cf3b48220f0faeb26158fc2f1cc24104.gif', // 示例图片3
-    'https://i.miji.bid/2025/06/21/8508a737f9915d3ecf339ba03aa521f0.gif', // 示例图片4
-    'https://i.miji.bid/2025/06/21/0c9b6557f2238ea42c96b562043e4d5d.gif'  // 示例图片5
+    'images/bg1.gif',
+    'images/bg2.gif'
 ];
 
 // 服务器人员头像数据
@@ -12,7 +9,7 @@ const staffAvatars = [
     {
         role: '服主',
         name: '3il33n',
-        avatar: 'https://i.miji.bid/2025/06/21/1e2454e43631c5071d30291aac14715a.png'
+        avatar: 'images/avatar.png'
      }
     // {
     //     role: '管理员',
