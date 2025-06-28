@@ -1,7 +1,13 @@
 // 背景幻灯片图片数组
 const backgroundImages = [
-    'images/bg1.gif',
-    'images/bg2.gif'
+    'images/bg1.png',
+    'images/bg2.png',
+    'images/bg3.png',
+    'images/bg4.png',
+    'images/bg5.png',
+    'images/bg6.png',
+    'images/bg7.png',
+    'images/bg8.png'
 ];
 
 // 服务器人员头像数据
