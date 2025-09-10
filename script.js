@@ -15,19 +15,19 @@ const backgroundImages = [
 const staffAvatars = [
     {
         role: '服主',
-        name: '3il33n',
-        avatar: 'images/avatar.png'
+        name: '塞菲莉娜',
+        avatar: 'images/avatar.jpg'
      }
-    // {
-    //     role: '管理员',
-    //     name: '玩家名称2',
-    //     avatar: 'https://i.imgur.com/userAvatar2.jpg'
-    // },
-    // {
-    //     role: '技术支持',
-    //     name: '玩家名称3',
-    //     avatar: 'https://i.imgur.com/userAvatar3.jpg'
-    // }
+    {
+        role: '服主',
+        name: '白大厨',
+        avatar: 'images/avatar2.jpg'
+     },
+     {
+        role: '副服主',
+        name: '爱莉希雅',
+        avatar: 'images/avatar3.jpg'
+     }
 ];
 
 // 初始化背景幻灯片
@@ -208,4 +208,5 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
