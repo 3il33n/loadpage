@@ -1,13 +1,14 @@
 // 背景幻灯片图片数组
 const backgroundImages = [
-    'images/bg1.png',
-    'images/bg2.png',
-    'images/bg3.png',
-    'images/bg4.png',
-    'images/bg5.png',
-    'images/bg6.png',
-    'images/bg7.png',
-    'images/bg8.png'
+    'images/bg1.jpg',
+    'images/bg2.jpg',
+    'images/bg3.jpg',
+    'images/bg4.jpg',
+    'images/bg5.jpg',
+    'images/bg6.jpg',
+    'images/bg7.jpg',
+    'images/bg8.jpg',
+    'images/bg9.jpg'
 ];
 
 // 服务器人员头像数据
@@ -207,3 +208,4 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
