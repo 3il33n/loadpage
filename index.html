@@ -14,7 +14,13 @@
     <div class="container">
         <div class="header">
             <h1 class="title">[RICE] PG X 小饭堂 合作scp服务器</h1>
-            <audio src="images/music.mp3" autoplay loop></audio>
+            <audio id="bgm" src="images/music.mp3" autoplay loop></audio>
+
+<script>
+  const audio = document.getElementById("bgm");
+  audio.volume = 0.4; 
+</script>
+
         </div>
 
         <div class="cards-container">
@@ -98,6 +104,7 @@
     <script src="script.js"></script>
 </body>
 </html> 
+
 
 
 
