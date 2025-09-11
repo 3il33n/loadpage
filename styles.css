@@ -347,7 +347,7 @@ body {
 
 .loading-icon {
     position: absolute;
-    top: 10px; /* 调整图标垂直位置，可以根据需要微调 */
+    top: 200px; /* 调整图标垂直位置，可以根据需要微调 */
     left: 0%;
     transform: translateX(-50%);
     width: 80px;   /* 放大图标 */
@@ -541,6 +541,7 @@ body {
     transition: all 0.3s ease;
 
 } 
+
 
 
 
