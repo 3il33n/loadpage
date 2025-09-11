@@ -101,6 +101,10 @@ function simulateLoading() {
         loadingPercentage.textContent = `${Math.floor(progress)}%`;
 
         // 更新图片位置
+        // 更新图片位置（修正边界）
+    const maxLeft = loadingBar.offsetWidth;           // 进度条总宽度
+    const iconHalf = loadingIcon.offsetWidth / 2;    // 图标宽度一半
+    const iconLeft = Math.min(progress / 100 * maxLeft, maxLeft - iconHalf);
         loadingIcon.style.left = `${progress}%`;
     }, interval);
 }
@@ -217,6 +221,7 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
