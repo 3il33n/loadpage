@@ -81,28 +81,27 @@ function cycleBackgroundSlides() {
 function simulateLoading() {
     const loadingBar = document.querySelector('.loading-bar');
     const loadingPercentage = document.querySelector('.loading-percentage');
+    const loadingIcon = document.querySelector('.loading-icon');
     let progress = 0;
-    
-    // 随机加载时间（10-20秒）
-    const totalLoadTime = Math.floor(Math.random() * 10000) + 10000;
-    const interval = 100; // 更新间隔
+
+    const totalLoadTime = Math.floor(Math.random() * 10000) + 10000; // 10-20秒
+    const interval = 100;
     const steps = totalLoadTime / interval;
     const increment = 100 / steps;
-    
+
     const loadingInterval = setInterval(() => {
         progress += increment;
-        
         if (progress >= 100) {
             progress = 100;
             clearInterval(loadingInterval);
-            
-            // 加载完成后可以执行其他操作
             onLoadingComplete();
         }
-        
-        // 更新加载条和百分比
+
         loadingBar.style.width = `${progress}%`;
         loadingPercentage.textContent = `${Math.floor(progress)}%`;
+
+        // 更新图片位置
+        loadingIcon.style.left = `${progress}%`;
     }, interval);
 }
 
@@ -218,6 +217,7 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
