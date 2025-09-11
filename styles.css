@@ -334,26 +334,7 @@ body {
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4) inset;
-    margin-top: 10px;
     position: relative;
-    z-index: 1;
-    overflow: visible;
-}
-
-.loading-bar-container::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, #4da6ff, #a64dff);
-    border-radius: 15px;
-    filter: blur(15px);
-    opacity: 0.3;
-    z-index: -1;
-    animation: pulse 2s infinite alternate;
 }
 
 .loading-bar {
@@ -361,9 +342,17 @@ body {
     width: 0%;
     background: linear-gradient(90deg, #4da6ff, #a64dff);
     border-radius: 12px;
-    transition: width 0.5s ease;
-    box-shadow: 0 0 15px rgba(77, 166, 255, 0.9);
-    animation: pulse 2s infinite;
+    transition: width 0.1s linear;
+}
+
+.loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    transition: left 0.1s linear;
 }
 
 .loading-info {
@@ -548,4 +537,5 @@ body {
     font-size: 1rem;
     line-height: 1.7;
     transition: all 0.3s ease;
+
 } 
