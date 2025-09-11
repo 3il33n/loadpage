@@ -27,6 +27,16 @@ const staffAvatars = [
         role: '副服主',
         name: '爱莉希雅',
         avatar: 'images/avatar3.jpg'
+     },
+     {
+        role: '吉祥物',
+        name: '琉璃漠染',
+        avatar: 'images/avatar4.jpg'
+     },
+     {
+        role: '安保人员',
+        name: 'garden',
+        avatar: 'images/avatar5.jpg'
      }
 ];
 
@@ -208,6 +218,7 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
