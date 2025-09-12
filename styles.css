@@ -121,50 +121,6 @@ body {
     animation-delay: 0.8s;
 }
 
-/* 卡片出现动画 */
-@keyframes cardAppear1 {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) rotate(-5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(20px) rotate(-2deg);
-    }
-}
-
-@keyframes cardAppear2 {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) rotate(5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-15px) rotate(1deg);
-    }
-}
-
-@keyframes cardAppear3 {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) rotate(-5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(10px) rotate(-1deg);
-    }
-}
-
-@keyframes cardAppear4 {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) rotate(5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-5px) rotate(2deg);
-    }
-}
 
 /* 添加霓虹边框效果 */
 .card::after {
@@ -203,29 +159,7 @@ body {
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(77, 166, 255, 0.4);
 }
 
-/* 为每个卡片添加不同的悬停效果 */
-.card:nth-child(1):hover {
-    transform: translateY(-10px) scale(1.02) rotateX(5deg) rotateY(-5deg);
-}
 
-.card:nth-child(2):hover {
-    transform: translateY(-10px) scale(1.02) rotateX(-5deg) rotateY(5deg);
-}
-
-.card:nth-child(3):hover {
-    transform: translateY(-10px) scale(1.02) rotateX(5deg) rotateY(5deg);
-}
-
-.card:nth-child(4):hover {
-    transform: translateY(-10px) scale(1.02) rotateX(-5deg) rotateY(-5deg);
-}
-
-/* 添加点击效果 */
-.card:active {
-    transform: translateY(-5px) scale(0.98);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-}
 
 /* 添加卡片内部元素的3D效果 */
 .card h2, .card-content, .staff-member, .qr-code {
@@ -349,7 +283,7 @@ body {
     position: absolute;
     top: 1250px; /* 调整图标垂直位置，可以根据需要微调 */
     left: 0%;
-    transform: translateX(-50%);
+    transform: translate(-50%) scaleX(-1); /* 水平镜像 */
     width: 80px;   /* 放大图标 */
     height: 80px;  /* 放大图标 */
     transition: left 0.1s linear;
@@ -364,15 +298,6 @@ body {
     text-align: center;
 }
 
-/* 动画效果 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
 @keyframes slideDown {
     from {

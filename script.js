@@ -14,28 +14,28 @@ const backgroundImages = [
 // 服务器人员头像数据
 const staffAvatars = [
     {
-        role: '服主',
-        name: '塞菲莉娜',
+        role: '塞菲莉娜',
+        name: '服主',
         avatar: 'images/avatar.jpg'
      },
     {
-        role: '服主',
-        name: '白大厨',
+        role: '白大厨',
+        name: '服主',
         avatar: 'images/avatar2.jpg'
      },
      {
-        role: '副服主',
-        name: '爱莉希雅',
+        role: '爱莉希雅',
+        name: '副服主',
         avatar: 'images/avatar3.jpg'
      },
      {
-        role: '吉祥物',
-        name: '琉璃漠染',
+        role: '琉璃漠染',
+        name: '吉祥物',
         avatar: 'images/avatar4.jpg'
      },
      {
-        role: '安保人员',
-        name: 'garden',
+        role: 'garden',
+        name: '安保人员',
         avatar: 'images/avatar5.jpg'
      }
 ];
