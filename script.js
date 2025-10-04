@@ -12,7 +12,7 @@ const backgroundImages = [
     'images/bg10.jpg',
     'images/bg11.jpg',
     'images/bg12.jpg',
-    'images/bg13.jpg',
+    'images/bg13.jpg'
 ];
 
 // 服务器人员头像数据
@@ -229,6 +229,7 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
