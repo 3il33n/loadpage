@@ -89,7 +89,7 @@ function cycleBackgroundSlides() {
     const container = document.querySelector('.loading-bar-container');
     let progress = 0;
 
-    const totalLoadTime = Math.floor(Math.random() * 40000) + 20000; // 40-60秒
+    const totalLoadTime = Math.floor(Math.random() * 90000) + 20000;
     const interval = 100;
     const steps = totalLoadTime / interval;
     const increment = 100 / steps;
@@ -229,6 +229,7 @@ function animateCards() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
