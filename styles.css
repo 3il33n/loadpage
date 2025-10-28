@@ -7,7 +7,7 @@
 }
 
 body {
-    color: #fff;
+    color: #fff175;
     overflow: hidden;
     position: relative;
     width: 100vw;
@@ -85,7 +85,7 @@ body {
 
 /* 卡片样式 */
 .card {
-    background-color: rgba(30, 30, 40, 0.8);
+    background-color: rgba(167, 40, 40, 0.8);
     border-radius: 10px;
     padding: 1.8rem;
     width: 340px;
@@ -95,7 +95,7 @@ body {
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 208, 0, 0.2);
     animation: none;
     transform-style: preserve-3d;
 }
@@ -132,7 +132,7 @@ body {
     bottom: 0;
     border-radius: 10px;
     padding: 2px;
-    background: linear-gradient(45deg, #ffffff, #000000, #ffffff, #000000);
+    background: linear-gradient(45deg, #ffc400, #ffffff, #ffc400, rgb(255, 255, 255));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -169,7 +169,7 @@ body {
 
 .card:hover h2 {
     transform: translateZ(30px) translateY(-2px);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 196, 0, 0.8);
     letter-spacing: 1px;
 }
 
@@ -200,7 +200,7 @@ body {
     margin-right: 1.2rem;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-    border: 3px solid #ffffff;
+    border: 3px solid #ffc400;
 }
 
 .staff-avatar img {
@@ -274,7 +274,7 @@ body {
 .loading-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #ffffff, #646464);
+    background: linear-gradient(90deg, #ff0000, #ffd900);
     border-radius: 12px;
     transition: width 0.1s linear;
 }
@@ -337,7 +337,7 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(85, 85, 85, 0) 70%);
+    background: radial-gradient(circle, rgba(255, 217, 0, 0.3) 0%, rgba(255, 208, 0, 0) 70%);
     border-radius: 50%;
     filter: blur(20px);
     animation: floatAround 15s infinite alternate ease-in-out;
