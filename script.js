@@ -1,47 +1,79 @@
-// 背景视频路径（可添加多个）
-const backgroundVideos = [
-    'images/bg1.mp4'
+const backgroundImages = [
+    'images/bg1.jpg',
+    'images/bg2.jpg',
+    'images/bg3.jpg',
+    'images/bg4.jpg',
+    'images/bg5.jpg',
+    'images/bg6.jpg',
+    'images/bg7.jpg',
+    'images/bg8.jpg',
+    'images/bg9.jpg',
+    'images/bg10.jpg',
+    'images/bg11.jpg',
+    'images/bg12.jpg',
+    'images/bg13.jpg'
 ];
 
 const staffAvatars = [
-    { role: '塞菲莉娜', name: '服主', avatar: 'images/avatar.jpg' },
-    { role: '白大厨', name: '服主', avatar: 'images/avatar2.jpg' },
-    { role: '爱莉希雅', name: '副服主', avatar: 'images/avatar3.jpg' },
-    { role: '琉璃漠染', name: '吉祥物', avatar: 'images/avatar4.jpg' },
-    { role: 'garden', name: '安保人员', avatar: 'images/avatar5.jpg' }
+    {
+        role: '塞菲莉娜',
+        name: '服主',
+        avatar: 'images/avatar.jpg'
+     },
+    {
+        role: '白大厨',
+        name: '服主',
+        avatar: 'images/avatar2.jpg'
+     },
+     {
+        role: '爱莉希雅',
+        name: '副服主',
+        avatar: 'images/avatar3.jpg'
+     },
+     {
+        role: '琉璃漠染',
+        name: '吉祥物',
+        avatar: 'images/avatar4.jpg'
+     },
+     {
+        role: 'garden',
+        name: '安保人员',
+        avatar: 'images/avatar5.jpg'
+     }
 ];
 
-// 初始化背景视频播放
-function initBackgroundVideo() {
-    const container = document.querySelector('.background-slideshow');
-    container.innerHTML = ''; // 清空旧内容
-
-    const videoElement = document.createElement('video');
-    videoElement.classList.add('background-video');
-    videoElement.autoplay = true;
-    videoElement.loop = true; // 我们手动切换视频
-    videoElement.muted = true; // 静音以确保自动播放
-    videoElement.playsInline = true;
-
-    container.appendChild(videoElement);
-
-    let currentVideo = 0;
-
-    function playNextVideo() {
-        videoElement.src = backgroundVideos[currentVideo];
-        videoElement.play();
-
-        // 当视频播放结束时，切换到下一个
-        videoElement.onended = () => {
-            currentVideo = (currentVideo + 1) % backgroundVideos.length;
-            playNextVideo();
-        };
-    }
-
-    playNextVideo();
+function initBackgroundSlideshow() {
+    const slideshowContainer = document.querySelector('.background-slideshow');
+    
+    backgroundImages.forEach((imageUrl, index) => {
+        const slide = document.createElement('div');
+        slide.classList.add('background-slide');
+        slide.style.backgroundImage = `url(${imageUrl})`;
+        
+        if (index === 0) {
+            slide.classList.add('active');
+        }
+        
+        slideshowContainer.appendChild(slide);
+    });
 }
 
-function simulateLoading() {
+function cycleBackgroundSlides() {
+    const slides = document.querySelectorAll('.background-slide');
+    let currentSlide = 0;
+    
+    slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) {
+            currentSlide = index;
+            slide.classList.remove('active');
+        }
+    });
+    
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+    function simulateLoading() {
     const loadingBar = document.querySelector('.loading-bar');
     const loadingPercentage = document.querySelector('.loading-percentage');
     const loadingIcon = document.querySelector('.loading-icon');
@@ -137,6 +169,24 @@ function setStaffAvatars() {
     });
 }
 
+function initPage() {
+    initBackgroundSlideshow();
+    
+    setInterval(cycleBackgroundSlides, 5000);
+    
+    setStaffAvatars();
+    
+    simulateLoading();
+    
+    const title = document.querySelector('.title');
+    const originalText = title.textContent;
+    typewriterEffect(title, originalText);
+    
+    addCardFlipEffect();
+    
+    animateCards();
+}
+
 function animateCards() {
     const cards = document.querySelectorAll('.card');
     
@@ -148,18 +198,19 @@ function animateCards() {
     });
 }
 
-function initPage() {
-    initBackgroundVideo(); // ⬅️ 改为视频背景
-    setStaffAvatars();
-    simulateLoading();
-    
-    const title = document.querySelector('.title');
-    const originalText = title.textContent;
-    typewriterEffect(title, originalText);
-    
-    addCardFlipEffect();
-    animateCards();
-}
-
 document.addEventListener('DOMContentLoaded', initPage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
