@@ -19,7 +19,7 @@ function initBackgroundVideo() {
     const videoElement = document.createElement('video');
     videoElement.classList.add('background-video');
     videoElement.autoplay = true;
-    videoElement.loop = false; // 我们手动切换视频
+    videoElement.loop = true; // 我们手动切换视频
     videoElement.muted = true; // 静音以确保自动播放
     videoElement.playsInline = true;
 
@@ -162,3 +162,4 @@ function initPage() {
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
+
