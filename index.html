@@ -1,180 +1,481 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GMOD服务器加载界面</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GMOD 服务器加载页</title>
+  <style>
+    :root {
+      --accent: rgba(46, 204, 113, 0.95);
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-strong: rgba(255, 255, 255, 0.10);
+      --text: #e9eef6;
+      --muted: rgba(233, 238, 246, 0.7);
+      --bg-dark: #0b1020;
+      --card-radius: 14px;
+      font-family: "Microsoft YaHei", "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* 背景相关 */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      will-change: opacity;
+      filter: brightness(0.42) saturate(0.95) contrast(0.9);
+    }
+
+    .bg-slide.active {
+      opacity: 1;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4, 8, 15, 0.25), rgba(4, 8, 15, 0.65));
+      z-index: 1;
+    }
+
+    /* 容器 */
+    .container {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .card {
+      width: min(1100px, 96%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
+      border-radius: var(--card-radius);
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+      backdrop-filter: blur(6px) saturate(1.08);
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+      align-items: start;
+      overflow: hidden;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .qq-qr {
+      margin-top: auto;
+      background: var(--glass-strong);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .qq-qr img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .qq-qr small {
+      color: var(--muted);
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .rules {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.015));
+      padding: 12px;
+      border-radius: 10px;
+      min-height: 120px;
+      overflow: auto;
+    }
+
+    .rules h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+
+    .rules ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .staff-wrap {
+      margin-top: 6px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 8px 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .staff-track {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      white-space: nowrap;
+      transform: translateX(0);
+      animation: scroll-left 18s linear infinite;
+    }
+
+    .staff-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+    }
+
+    .staff-item img {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .staff-item .meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .staff-item .name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .staff-item .role {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .progress-wrap {
+      margin-top: 12px;
+      position: relative;
+    }
+
+    .progress {
+      height: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.185), rgba(255, 255, 255, 0.534));
+      transition: width 300ms ease;
+    }
+
+    .progress .label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #rocket {
+      position: absolute;
+      top: 50%;
+      transform: translate(-100%, -100%) scaleX(-1);
+      width: 36px;
+      height: 36px;
+      pointer-events: none;
+      max-left: calc(100% - 18px);
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+      .logo {
+        height: 100px;
+      }
+      .qq-qr img {
+        width: 140px;
+        height: 140px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="background-slideshow">
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="bg-slide" style="background-image:url('images/bg1.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg2.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg3.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg4.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg5.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg6.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg7.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg8.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg9.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg10.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg11.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg12.jpg')"></div>
+    <div class="bg-slide" style="background-image:url('images/bg13.jpg')"></div>
+    <div class="bg-overlay"></div>
+  </div>
+
+  <div class="container">
+    <div class="card" role="main">
+      <!-- 左侧 -->
+      <div class="left">
+        <div class="logo">
+          <div style="text-align:center">
+            <div style="font-size:20px">欢迎来到</div>
+            <div style="font-size:12px;color:var(--muted)">[RICE]PG X 小饭堂合作scp服务器</div>
+          </div>
+        </div>
+
+        <div class="qq-qr">
+          <div style="font-weight:700">扫描二维码加入我们的QQ群</div>
+          <img src="images/qq.png" alt="QQ群二维码"/>
+          <small>群号：1014013558</small>
+        </div>
+      </div>
+
+      <!-- 右侧 -->
+      <div class="right">
+        <div class="rules" id="rules">
+          <h3>游玩须知</h3>
+          <ul>
+            <li>尊重其他玩家，禁止辱骂和骚扰</li>
+            <li>资源包下载以及本服规则请前往群内置顶公告</li>
+            <li>游戏内可用!report加上空格对管理发消息</li>
+            <li>祝您游戏愉快！</li>
+          </ul>
+        </div>
+
+        <div class="progress-wrap">
+          <img id="rocket" src="images/rocket.png">
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="bar" id="progress-bar"></div>
+          </div>
+          <div class="label">
+            <span id="progress-text">正在连接服务器…</span>
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+
+        <div class="staff-wrap" aria-label="服务器人员列表">
+          <div id="staff-track" class="staff-track">
+            <div class="staff-item">
+              <img src="images/avatar.jpg" alt="管理员A"/>
+              <div class="meta"><span class="name">塞菲莉娜</span><span class="role">服主</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/avatar2.jpg" alt="管理B"/>
+              <div class="meta"><span class="name">白大厨</span><span class="role">服主</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/ding.jpg" alt="管理C"/>
+              <div class="meta"><span class="name">牢丁</span><span class="role">副服主</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/niangniang.jpg" alt="管理D"/>
+              <div class="meta"><span class="name">娘娘</span><span class="role">总主管</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/3il33n.png" alt="管理E"/>
+              <div class="meta"><span class="name">3il33n</span><span class="role">技术</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/daogu.jpg" alt="管理F"/>
+              <div class="meta"><span class="name">稻谷MCUT</span><span class="role">技术</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/dayaojing.jpg" alt="管理G"/>
+              <div class="meta"><span class="name">大妖精</span><span class="role">技术</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/fufu.jpg" alt="管理H"/>
+              <div class="meta"><span class="name">fufu</span><span class="role">技术主管</span></div>
+            </div>
+            <div class="staff-item">
+              <img src="images/avatar4.jpg" alt="管理I"/>
+              <div class="meta"><span class="name">琉璃默染</span><span class="role">吉祥物</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div>模式：rice_breach • 地图：pg_site91</div>
+          <div>提示：加载完成后将自动进入游戏</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="container">
-        <div class="header">
-            <h1 class="title">[RICE] PG X 小饭堂 合作scp服务器</h1>
-            <audio id="bgm" src="images/music.mp3" autoplay loop></audio>
+  <script>
+    // 背景轮播
+    (function() {
+      const slides = Array.from(document.querySelectorAll('.bg-slide'));
+      let idx = 0;
+      if (!slides.length) return;
+      slides[idx].classList.add('active');
+      setInterval(() => {
+        slides[idx].classList.remove('active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('active');
+      }, 6000);
+    })();
 
-<script>
-  const audio = document.getElementById("bgm");
-  audio.volume = 0.1; 
-</script>
+(function(){
+  const track = document.getElementById('staff-track');
+  if(!track) return;
 
-        </div>
+  const items = Array.from(track.children);
+  const gap = 18; // CSS gap
+  const totalWidth = items.reduce((sum, el) => sum + el.offsetWidth + gap, 0);
 
-        <div class="cards-container">
-            <div class="card" id="rules">
-                <h2>游玩须知</h2>
-                <div class="card-content">
-                    <ul>
-                        <li>尊重其他玩家，禁止辱骂和骚扰</li>
-                        <li>资源包下载以及本服规则请前往群内置顶公告</li>
-                        <li>游戏内可用!report加上空格对管理发消息</li>
-                        <li>祝您游戏愉快！</li>
-                    </ul>
-                </div>
-            </div>
+  // 克隆一次内容
+  track.innerHTML += track.innerHTML;
+  track.style.width = totalWidth * 2 + 'px';
 
-            <div class="card" id="staff">
-                <h2>服务器主要人员</h2>
-                <div class="card-content">
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/avatar.jpg" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>塞菲莉娜</h3>
-                            <p>服主</p>
-                        </div>
-                        </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                            <img src="images/avatar2.jpg" alt="管理员头像">
-                        </div>
-                        <div class="staff-info">
-                            <h3>白大厨</h3>
-                            <p>服主</p>
-                        </div>
-                    </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                            <img src="images/avatar4.jpg" alt="技术支持头像">
-                        </div>
-                        <div class="staff-info">
-                            <h3>琉璃漠染</h3>
-                            <p>吉祥物</p>
-                        </div> 
-                    </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                            <img src="images/ding.jpg" alt="技术支持头像">
-                        </div>
-                        <div class="staff-info">
-                            <h3>牢丁</h3>
-                            <p>副服主</p>
-                        </div> 
-                    </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/niangniang.jpg" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>娘娘</h3>
-                            <p>总主管</p>
-                        </div>
-                        </div>
-                </div>
-            </div>
+  // 设置滚动速度
+  const speed = 60; 
+  const duration = totalWidth / speed; 
+  track.style.animation = `scroll-left ${duration}s linear infinite`;
 
-                    <div class="card" id="staff">
-                <h2>服务器主要人员</h2>
-                <div class="card-content">
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/3il33n.png" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>3il33n</h3>
-                            <p>技术人员</p>
-                        </div>
-                        </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/dayaojing.jpg" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>大妖精</h3>
-                            <p>技术人员</p>
-                        </div>
-                        </div>
-                     <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/daogu.jpg" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>稻谷MCUT</h3>
-                            <p>技术人员</p>
-                        </div>
-                        </div>
-                    <div class="staff-member">
-                        <div class="staff-avatar">
-                           <img src="images/fufu.jpg" alt="服主头像">   
-                        </div>
-                        <div class="staff-info">
-                            <h3>fufu</h3>
-                            <p>技术主管</p>
-                        </div>                        
-                        </div>
-                </div>
-            </div>
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-${totalWidth}px); }
+    }
+  `;
+  document.head.appendChild(style);
+})();
 
-            <div class="card" id="qq-group">
-                <h2>QQ群</h2>
-                <div class="card-content">
-                    <div class="qr-code">
-                        <img src="images/qq.jpg" alt="QQ群二维码">
-                    </div>
-                    <p>扫描二维码加入我们的QQ群</p>
-                    <p>群号：1014013558</p>
-                </div>
-            </div>
-        </div>
+    // 进度条动画
+    (function() {
+      const bar = document.getElementById('progress-bar');
+      const text = document.getElementById('progress-text');
+      const percent = document.getElementById('progress-percent');
+      const rocket = document.getElementById('rocket');
 
-        <div class="loading-container">
-            <div class="loading-text">
-                <span>正在加载服务器资源</span>
-                <span class="loading-percentage">0%</span>
-            </div>
-            <div class="loading-bar-container">
-                <div class="loading-bar"></div>
-            </div>
-                <img src="images/rocket.png" alt="rocket" class="loading-icon">
-            </div>
-            <div class="loading-info">请耐心等待，加载时间取决于您的网络速度和硬件配置</div>
-        </div>
-    </div>
+      let value = 0;
+      const tasks = [
+        { name: '检索服务器信息', time: 40000 },
+        { name: '创意工坊挂载', time: 80000 },
+        { name: '发送客户端信息', time: 90000 },
+        { name: '加载Lua', time: 100000 },
+        { name: '初始化完成', time: 120000 }
+      ];
 
-    <script src="script.js"></script>
+      let i = 0;
+
+      function nextTask() {
+        if (i >= tasks.length) {
+          const finish = setInterval(() => {
+            value += Math.max(1, (100 - value) * 0.08);
+            update();
+            if (value >= 99.9) {
+              value = 100;
+              update();
+              clearInterval(finish);
+              onComplete();
+            }
+          }, 80);
+          return;
+        }
+
+        const t = tasks[i];
+        text.textContent = t.name + '...';
+        const steps = Math.max(6, Math.round(t.time / 60));
+        let step = 0;
+
+        const iv = setInterval(() => {
+          step++;
+          value += ((100 - value) * (0.14 + Math.random() * 0.06)) / steps;
+          if (value > 99) value = 99;
+          update();
+          if (step >= steps) {
+            clearInterval(iv);
+            i++;
+            setTimeout(nextTask, 120);
+          }
+        }, t.time / steps);
+      }
+
+      function update() {
+        bar.style.width = Math.min(100, value) + '%';
+        percent.textContent = Math.floor(value) + '%';
+        if (rocket) rocket.style.left = Math.min(100, value) + '%';
+      }
+
+      function onComplete() {
+        text.textContent = '加载完成，准备进入…';
+        percent.textContent = '100%';
+        rocket.style.left = '100%';
+      }
+
+      nextTask();
+    })();
+  </script>
 </body>
-</html> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
