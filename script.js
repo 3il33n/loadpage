@@ -37,7 +37,7 @@ const staffAvatars = [
      },
      {
         role: '娘娘',
-        name: '安保人员',
+        name: '总主管',
         avatar: 'images/niangniang.jpg'
      }
 ];
@@ -199,6 +199,7 @@ function animateCards() {
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
