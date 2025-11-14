@@ -26,19 +26,19 @@ const staffAvatars = [
         avatar: 'images/avatar2.jpg'
      },
      {
-        role: '爱莉希雅',
-        name: '副服主',
-        avatar: 'images/avatar3.jpg'
-     },
-     {
         role: '琉璃漠染',
         name: '吉祥物',
         avatar: 'images/avatar4.jpg'
      },
      {
-        role: 'garden',
+        role: '牢丁',
+        name: '副服主',
+        avatar: 'images/ding.jpg'
+     },
+     {
+        role: '娘娘',
         name: '安保人员',
-        avatar: 'images/avatar5.jpg'
+        avatar: 'images/niangniang.jpg'
      }
 ];
 
@@ -199,6 +199,7 @@ function animateCards() {
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
+
 
 
 
