@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GMOD 服务器加载页</title>
+  <audio id="bgm" src="images/music.mp3" autoplay loop></audio>
   <style>
     :root {
       --accent: rgba(46, 204, 113, 0.95);
@@ -476,6 +477,9 @@
 
       nextTask();
     })();
+      const audio = document.getElementById("bgm");
+  audio.volume = 0.1; 
   </script>
 </body>
 </html>
+
