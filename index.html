@@ -26,38 +26,24 @@
     }
 
     /* 背景相关 */
-    .bg-wrap {
+    .background-slideshow {
       position: fixed;
-      inset: 0;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
-      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      filter: blur(6px) brightness(0.7);
+      transform: scale(1.05);
+      transition: background-image 1.8s ease-in-out;
     }
 
-.bg-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-color: #0b1020;
-    filter:blur(2px);
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-    z-index: 0;
-}
-
-    .bg-slide.active {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .bg-overlay {
+    .overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(180deg, rgba(4, 8, 15, 0.25), rgba(4, 8, 15, 0.65));
-      z-index: 1;
+      z-index: -1;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(0,0,0,0.7));
     }
 
     /* 容器 */
@@ -316,23 +302,7 @@
 </head>
 
 <body>
-  <div class="bg-wrap">
-    <img class="bg-slide" src="images/bg1.jpg" alt="">
-    <img class="bg-slide" src="images/bg2.jpg" alt="">
-    <img class="bg-slide" src="images/bg3.jpg" alt="">
-    <img class="bg-slide" src="images/bg4.jpg" alt="">
-    <img class="bg-slide" src="images/bg5.jpg" alt="">
-    <img class="bg-slide" src="images/bg6.jpg" alt="">
-    <img class="bg-slide" src="images/bg7.jpg" alt="">
-    <img class="bg-slide" src="images/bg8.jpg" alt="">
-    <img class="bg-slide" src="images/bg9.jpg" alt="">
-    <img class="bg-slide" src="images/bg10.jpg" alt="">
-    <img class="bg-slide" src="images/bg11.jpg" alt="">
-    <img class="bg-slide" src="images/bg12.jpg" alt="">
-    <img class="bg-slide" src="images/bg13.jpg" alt="">
-    <div class="bg-overlay"></div>
-  </div>
-
+  <div class="background-slideshow"></div>
   <div class="container">
     <div class="card" role="main">
       <!-- 左侧 -->
@@ -455,78 +425,16 @@ window.addEventListener('load', function() {
     });
 });
     // 背景轮播
-// 完全重写背景轮播逻辑
-(function() {
-  console.log('初始化背景轮播...');
-  
-  const slides = document.querySelectorAll('.bg-slide');
-  console.log('找到背景图片数量:', slides.length);
-  
-  if (slides.length === 0) {
-    console.error('未找到背景图片元素');
-    // 添加一个默认背景
-    const defaultBg = document.createElement('div');
-    defaultBg.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #0b1020, #1a2b4c);
-      z-index: -1;
-    `;
-    document.body.appendChild(defaultBg);
-    return;
-  }
-  
-  let currentIndex = 0;
-  
-  // 显示第一张图片
-  function showFirstSlide() {
-    slides[0].classList.add('active');
-    console.log('显示第一张背景图片');
-  }
-  
-  // 轮播函数
-  function rotateSlides() {
-    const currentSlide = slides[currentIndex];
-    const nextIndex = (currentIndex + 1) % slides.length;
-    const nextSlide = slides[nextIndex];
-    
-    currentSlide.classList.remove('active');
-    nextSlide.classList.add('active');
-    
-    currentIndex = nextIndex;
-  }
-  
-  // 预加载图片
-  function preloadImages() {
-    slides.forEach((slide, index) => {
-      const bgImage = slide.style.backgroundImage;
-      const urlMatch = bgImage.match(/url\(['"]?(.*?)['"]?\)/);
-      
-      if (urlMatch && urlMatch[1]) {
-        const img = new Image();
-        img.src = urlMatch[1];
-        img.onload = function() {
-          console.log(`背景图片 ${index + 1} 加载成功:`, urlMatch[1]);
-        };
-        img.onerror = function() {
-          console.error(`背景图片 ${index + 1} 加载失败:`, urlMatch[1]);
-          slide.style.backgroundColor = '#1a2b4c'; // 加载失败时显示备用颜色
-        };
-      }
-    });
-  }
-  
-  // 初始化
-  showFirstSlide();
-  preloadImages();
-  
-  // 6秒轮播
-  setInterval(rotateSlides, 6000);
-  
-})();
+    const bg = document.querySelector('.background-slideshow');
+    const images = ["images/bg1.jpg", "images/bg2.jpg", "images/bg3.jpg", "images/bg4.jpg", "images/bg5.jpg", "images/bg6.jpg", "images/bg7.jpg", "images/bg8.jpg", "images/bg9.jpg", "images/bg10.jpg", "images/bg11.jpg", "images/bg12.jpg", "images/bg13.jpg"];
+    let current = 0;
+
+    function changeBackground() {
+      bg.style.backgroundImage = `url("${images[current]}")`;
+      current = (current + 1) % images.length;
+    }
+    changeBackground();
+    setInterval(changeBackground, 6000);
 
 (function(){
   const track = document.getElementById('staff-track');
