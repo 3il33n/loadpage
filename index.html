@@ -20,7 +20,7 @@
     html, body {
       height: 100%;
       margin: 0;
-      background: #000;
+      background: #0b1020 !important;
       color: var(--text);
       overflow: hidden;
     }
@@ -41,13 +41,16 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-color: #0b1020;
     filter:blur(2px);
     opacity: 0;
     transition: opacity 2s ease-in-out;
+    z-index: 0;
 }
 
     .bg-slide.active {
       opacity: 1;
+      z-index: 1;
     }
 
     .bg-overlay {
@@ -452,25 +455,77 @@ window.addEventListener('load', function() {
     });
 });
     // 背景轮播
+// 完全重写背景轮播逻辑
 (function() {
-    const slides = document.querySelectorAll('.bg-slide');
-    if (slides.length === 0) return;
+  console.log('初始化背景轮播...');
+  
+  const slides = document.querySelectorAll('.bg-slide');
+  console.log('找到背景图片数量:', slides.length);
+  
+  if (slides.length === 0) {
+    console.error('未找到背景图片元素');
+    // 添加一个默认背景
+    const defaultBg = document.createElement('div');
+    defaultBg.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #0b1020, #1a2b4c);
+      z-index: -1;
+    `;
+    document.body.appendChild(defaultBg);
+    return;
+  }
+  
+  let currentIndex = 0;
+  
+  // 显示第一张图片
+  function showFirstSlide() {
+    slides[0].classList.add('active');
+    console.log('显示第一张背景图片');
+  }
+  
+  // 轮播函数
+  function rotateSlides() {
+    const currentSlide = slides[currentIndex];
+    const nextIndex = (currentIndex + 1) % slides.length;
+    const nextSlide = slides[nextIndex];
     
-    let currentIndex = 0;
+    currentSlide.classList.remove('active');
+    nextSlide.classList.add('active');
     
-    function showNextSlide() {
-        // 移除所有active类
-        slides.forEach(slide => slide.classList.remove('active'));
-        // 显示当前幻灯片
-        slides[currentIndex].classList.add('active');
-        // 移动到下一张
-        currentIndex = (currentIndex + 1) % slides.length;
-    }
-    
-    // 立即显示第一张
-    showNextSlide();
-    // 设置轮播间隔
-    setInterval(showNextSlide, 6000);
+    currentIndex = nextIndex;
+  }
+  
+  // 预加载图片
+  function preloadImages() {
+    slides.forEach((slide, index) => {
+      const bgImage = slide.style.backgroundImage;
+      const urlMatch = bgImage.match(/url\(['"]?(.*?)['"]?\)/);
+      
+      if (urlMatch && urlMatch[1]) {
+        const img = new Image();
+        img.src = urlMatch[1];
+        img.onload = function() {
+          console.log(`背景图片 ${index + 1} 加载成功:`, urlMatch[1]);
+        };
+        img.onerror = function() {
+          console.error(`背景图片 ${index + 1} 加载失败:`, urlMatch[1]);
+          slide.style.backgroundColor = '#1a2b4c'; // 加载失败时显示备用颜色
+        };
+      }
+    });
+  }
+  
+  // 初始化
+  showFirstSlide();
+  preloadImages();
+  
+  // 6秒轮播
+  setInterval(rotateSlides, 6000);
+  
 })();
 
 (function(){
@@ -592,3 +647,4 @@ window.addEventListener('load', function() {
   </script>
 </body>
 </html>
+
