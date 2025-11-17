@@ -46,6 +46,31 @@
       background: radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(0,0,0,0.7));
     }
 
+    /* 服务器标题 */
+    .server-title {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+      padding: 0 20px;
+    }
+
+    .server-title h1 {
+      font-size: 2.5rem;
+      margin: 0 0 5px 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1px;
+    }
+
+    .server-title .subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
     /* 容器 */
     .container {
       position: relative;
@@ -70,6 +95,7 @@
       gap: 18px;
       align-items: start;
       overflow: hidden;
+      margin-top: 60px; /* 为服务器标题腾出空间 */
     }
 
     .left {
@@ -250,67 +276,75 @@
         width: 140px;
         height: 140px;
       }
+      .server-title h1 {
+        font-size: 2rem;
+      }
+      .server-title .subtitle {
+        font-size: 1rem;
+      }
     }
 
     .music-player {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-}
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
 
-.music-player .cover img {
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  object-fit: cover;
-}
+    .music-player .cover img {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
 
-.music-player .controls {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+    .music-player .controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-.music-player .info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--muted);
-}
+    .music-player .info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-.music-player .progress-music {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 3px;
-  overflow: hidden;
-}
+    .music-player .progress-music {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
 
-.music-player .progress-music .bar {
-  height: 100%;
-  width: 0%;
-  background: var(--accent);
-  transition: width 0.2s linear;
-}
-
+    .music-player .progress-music .bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.2s linear;
+    }
   </style>
 </head>
 
 <body>
-  <div class="background-slideshow"></div>
+  <div class="background-slideshow"></ div>
+  <div class="server-title">
+    <h1>[RICE]小饭堂SCP服务器</h1>
+  </div>
   <div class="container">
     <div class="card" role="main">
       <!-- 左侧 -->
       <div class="left">
         <div class="logo">
           <div style="text-align:center">
-            <div style="font-size:20px">欢迎来到</div>
-            <div style="font-size:12px;color:var(--muted)">[RICE]小饭堂scp服务器</div>
+            <div style="font-size:20px">欢迎来到本服务器</div>
+            <div style="font-size:12px;color:var(--muted)">模式：rice_breach • 地图：pg_site91</div>
           </div>
         </div>
 
@@ -384,24 +418,23 @@
             </div>
           </div>
         </div>
-<!-- 音乐播放器 -->
-<div class="music-player">
-  <div class="cover">
-    <img src="images/music.jpg" alt="音乐封面">
-  </div>
-  <div class="controls">
-    <div class="info">
-      <span id="song-title">正在播放 "Target For Love"</span>
-      <span id="song-time">0:00 / 0:00</span>
-    </div>
-    <div class="progress-music">
-      <div class="bar" id="music-bar"></div>
-    </div>
-  </div>
-</div>
+        <!-- 音乐播放器 -->
+        <div class="music-player">
+          <div class="cover">
+            <img src="images/music.jpg" alt="音乐封面">
+          </div>
+          <div class="controls">
+            <div class="info">
+              <span id="song-title">正在播放 "The Saltwater Room"</span>
+              <span id="song-time">0:00 / 0:00</span>
+            </div>
+            <div class="progress-music">
+              <div class="bar" id="music-bar"></div>
+            </div>
+          </div>
+        </div>
 
         <div class="footer">
-          <div>模式：rice_breach • 地图：pg_site91</div>
           <div>加载速度取决于您的网络与配置</div>
         </div>
       </div>
@@ -410,20 +443,21 @@
 
   <script>
     // 在页面加载时预加载背景图片
-window.addEventListener('load', function() {
-    const bgImages = [
-        'images/bg1.jpg', 'images/bg2.jpg', 'images/bg3.jpg', 
-        'images/bg4.jpg', 'images/bg5.jpg', 'images/bg6.jpg',
-        'images/bg7.jpg', 'images/bg8.jpg', 'images/bg9.jpg',
-        'images/bg10.jpg', 'images/bg11.jpg', 'images/bg12.jpg',
-        'images/bg13.jpg'
-    ];
-    
-    bgImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
+    window.addEventListener('load', function() {
+        const bgImages = [
+            'images/bg1.jpg', 'images/bg2.jpg', 'images/bg3.jpg', 
+            'images/bg4.jpg', 'images/bg5.jpg', 'images/bg6.jpg',
+            'images/bg7.jpg', 'images/bg8.jpg', 'images/bg9.jpg',
+            'images/bg10.jpg', 'images/bg11.jpg', 'images/bg12.jpg',
+            'images/bg13.jpg'
+        ];
+        
+        bgImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
     });
-});
+    
     // 背景轮播
     const bg = document.querySelector('.background-slideshow');
     const images = ["images/bg1.jpg", "images/bg2.jpg", "images/bg3.jpg", "images/bg4.jpg", "images/bg5.jpg", "images/bg6.jpg", "images/bg7.jpg", "images/bg8.jpg", "images/bg9.jpg", "images/bg10.jpg", "images/bg11.jpg", "images/bg12.jpg", "images/bg13.jpg"];
@@ -436,32 +470,32 @@ window.addEventListener('load', function() {
     changeBackground();
     setInterval(changeBackground, 6000);
 
-(function(){
-  const track = document.getElementById('staff-track');
-  if(!track) return;
+    (function(){
+      const track = document.getElementById('staff-track');
+      if(!track) return;
 
-  const items = Array.from(track.children);
-  const gap = 18; // CSS gap
-  const totalWidth = items.reduce((sum, el) => sum + el.offsetWidth + gap, 0);
+      const items = Array.from(track.children);
+      const gap = 18; // CSS gap
+      const totalWidth = items.reduce((sum, el) => sum + el.offsetWidth + gap, 0);
 
-  // 克隆一次内容
-  track.innerHTML += track.innerHTML;
-  track.style.width = totalWidth * 2 + 'px';
+      // 克隆一次内容
+      track.innerHTML += track.innerHTML;
+      track.style.width = totalWidth * 2 + 'px';
 
-  // 设置滚动速度
-  const speed = 60; 
-  const duration = totalWidth / speed; 
-  track.style.animation = `scroll-left ${duration}s linear infinite`;
+      // 设置滚动速度
+      const speed = 60; 
+      const duration = totalWidth / speed; 
+      track.style.animation = `scroll-left ${duration}s linear infinite`;
 
-  const style = document.createElement('style');
-  style.innerHTML = `
-    @keyframes scroll-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-${totalWidth}px); }
-    }
-  `;
-  document.head.appendChild(style);
-})();
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-${totalWidth}px); }
+        }
+      `;
+      document.head.appendChild(style);
+    })();
 
     // 进度条动画
     (function() {
@@ -529,30 +563,31 @@ window.addEventListener('load', function() {
 
       nextTask();
     })();
-(function() {
-  const audio = document.getElementById('bgm');
-  const bar = document.getElementById('music-bar');
-  const timeText = document.getElementById('song-time');
+    
+    (function() {
+      const audio = document.getElementById('bgm');
+      const bar = document.getElementById('music-bar');
+      const timeText = document.getElementById('song-time');
 
-  function formatTime(sec) {
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  }
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
 
-  audio.addEventListener('loadedmetadata', () => {
-    timeText.textContent = `0:00 / ${formatTime(audio.duration)}`;
-  });
+      audio.addEventListener('loadedmetadata', () => {
+        timeText.textContent = `0:00 / ${formatTime(audio.duration)}`;
+      });
 
-  audio.addEventListener('timeupdate', () => {
-    const percent = (audio.currentTime / audio.duration) * 100;
-    bar.style.width = percent + '%';
-    timeText.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-  });
-})();
+      audio.addEventListener('timeupdate', () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        bar.style.width = percent + '%';
+        timeText.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      });
+    })();
 
-      const audio = document.getElementById("bgm");
-  audio.volume = 0.1; 
+    const audio = document.getElementById("bgm");
+    audio.volume = 0.1; 
   </script>
 </body>
 </html>
