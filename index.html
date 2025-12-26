@@ -6,47 +6,6 @@
   <title>GMOD 服务器加载页</title>
   <audio id="bgm" src="images/music.mp3" autoplay loop></audio>
   <style>
-    /* 右侧圣诞树 */
-.christmas-tree-wrap {
-  position: fixed;
-  right: -40px;          /* 稍微出屏，显得更大 */
-  bottom: -20px;
-  height: 90vh;
-  z-index: 2;            /* 在背景上，在卡片下 */
-  pointer-events: none; /* 不挡点击 */
-  display: flex;
-  align-items: flex-end;
-}
-
-.christmas-tree-wrap img {
-  height: 100%;
-  filter:
-    drop-shadow(0 0 18px rgba(255,215,102,0.35))
-    drop-shadow(0 0 40px rgba(27,94,32,0.35));
-  animation: treeGlow 3.5s ease-in-out infinite;
-}
-
-/* 呼吸灯效果 */
-@keyframes treeGlow {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 14px rgba(255,215,102,0.35))
-      drop-shadow(0 0 30px rgba(27,94,32,0.35));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 26px rgba(255,215,102,0.65))
-      drop-shadow(0 0 60px rgba(198,40,40,0.45));
-  }
-}
-
-/* 小屏幕自动隐藏，防止挡内容 */
-@media (max-width: 1200px) {
-  .christmas-tree-wrap {
-    display: none;
-  }
-}
-
     :root {
       --accent: rgba(255, 255, 255, 0.95);
       --glass: rgba(255, 255, 255, 0.06);
@@ -65,14 +24,6 @@
       color: var(--text);
       overflow: hidden;
     }
-
-    /* 下雪 */
-#snow{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-}
 
     /* 背景相关 */
     .background-slideshow {
@@ -384,13 +335,9 @@
 </head>
 
 <body>
-  <div class="christmas-tree-wrap">
-  <img src="images/christmas-tree.png" alt="Christmas Tree">
-</div>
-  <canvas id="snow"></canvas>
   <div class="background-slideshow"></div>
   <div class="server-title">
-    <h1>🎄[RICE]小饭堂SCP服务器🎄</h1>
+    <h1>[RICE]小饭堂SCP服务器</h1>
   </div>
   <div class="container">
     <div class="card" role="main">
@@ -448,10 +395,6 @@
               <div class="meta"><span class="name">牢丁</span><span class="role">副服主</span></div>
             </div>
             <div class="staff-item">
-              <img src="images/niangniang.jpg" alt="管理D"/>
-              <div class="meta"><span class="name">娘娘</span><span class="role">总主管</span></div>
-            </div>
-            <div class="staff-item">
               <img src="images/3il33n.png" alt="管理E"/>
               <div class="meta"><span class="name">3il33n</span><span class="role">技术</span></div>
             </div>
@@ -467,10 +410,6 @@
               <img src="images/fufu.jpg" alt="管理H"/>
               <div class="meta"><span class="name">fufu</span><span class="role">技术主管</span></div>
             </div>
-            <div class="staff-item">
-              <img src="images/avatar4.jpg" alt="管理I"/>
-              <div class="meta"><span class="name">琉璃默染</span><span class="role">吉祥物</span></div>
-            </div>
           </div>
         </div>
         <!-- 音乐播放器 -->
@@ -480,7 +419,7 @@
           </div>
           <div class="controls">
             <div class="info">
-              <span id="song-title">正在播放 "圣堂的Merry Christmas〜救护骑士团的赠礼〜"</span>
+              <span id="song-title">正在播放 "夏之风"</span>
               <span id="song-time">0:00 / 0:00</span>
             </div>
             <div class="progress-music">
@@ -497,22 +436,6 @@
   </div>
 
   <script>
-    /* 下雪 */
-const canvas=document.getElementById('snow');
-const ctx=canvas.getContext('2d');
-let w,h;
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
-resize();addEventListener('resize',resize);
-const snow=Array.from({length:120},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*3+1,s:Math.random()+.5}));
-(function loop(){
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle='rgba(255,255,255,.85)';
-  snow.forEach(f=>{
-    ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();
-    f.y+=f.s;if(f.y>h){f.y=-5;f.x=Math.random()*w;}
-  });
-  requestAnimationFrame(loop);
-})();
     // 在页面加载时预加载背景图片
     window.addEventListener('load', function() {
         const bgImages = [
@@ -669,3 +592,10 @@ const snow=Array.from({length:120},()=>({x:Math.random()*w,y:Math.random()*h,r:M
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
