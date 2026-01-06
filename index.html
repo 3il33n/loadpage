@@ -44,12 +44,12 @@
 
 #line1 {
   text-align: left;
-  color: rgb(255, 255, 255, 0.8); /* 未高亮 */
+  color: rgb(255, 255, 255); /* 未高亮 */
 }
 
 #line2 {
   text-align: right;
-  color: rgb(255, 255, 255, 0.8); /* 未高亮 */
+  color: rgb(255, 255, 255); /* 未高亮 */
 }
 
 .lyrics-ktv .highlight {
@@ -639,11 +639,14 @@
   const line1El = document.getElementById("line1");
   const line2El = document.getElementById("line2");
 
-  const lrcFile = 'images/music.lrc'; // 外部 LRC 文件路径
+  const lrcFile = 'images/music.lrc'; // LRC 文件路径
 
-  fetch(lrcFile)
-    .then(res => res.text())
-    .then(lrcText => {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", lrcFile, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const lrcText = xhr.responseText;
+
       // 解析歌词
       const lyrics = [];
       lrcText.trim().split("\n").forEach(line => {
@@ -663,47 +666,28 @@
           currentIndex++;
         }
 
-        // 左上角显示奇数句，右下角显示下一句
+        // 左上显示奇数句，右下显示下一句
         const leftIndex = currentIndex % 2 === 0 ? currentIndex : currentIndex - 1;
         const rightIndex = leftIndex + 1;
 
-        // 设置文本和高亮
+        // 设置文本
         line1El.textContent = lyrics[leftIndex]?.text || '';
         line2El.textContent = lyrics[rightIndex]?.text || '';
 
         // 高亮当前唱的句
-        if (currentIndex === leftIndex) {
-          line1El.classList.add('highlight');
-          line2El.classList.remove('highlight');
-        } else if (currentIndex === rightIndex) {
-          line2El.classList.add('highlight');
-          line1El.classList.remove('highlight');
-        } else {
-          line1El.classList.remove('highlight');
-          line2El.classList.remove('highlight');
-        }
+        line1El.className = 'line';
+        line2El.className = 'line';
+        if (currentIndex === leftIndex) line1El.classList.add('highlight');
+        if (currentIndex === rightIndex) line2El.classList.add('highlight');
       }
 
       audio.addEventListener("timeupdate", updateLyrics);
-    })
-    .catch(err => {
-      console.error("歌词加载失败:", err);
-    });
+    } else if (xhr.readyState === 4) {
+      console.error("歌词加载失败:", xhr.status);
+    }
+  };
+  xhr.send();
 })();
-    fetch(lrcFile)
-  .then(res => res.text())
-  .then(lrcText => {
-    console.log("LRC 内容：", lrcText);
-    const lyrics = [];
-    lrcText.trim().split("\n").forEach(line => {
-      const match = line.match(/\[(\d+):(\d+\.\d+)\](.+)/);
-      if (!match) return;
-      const time = parseInt(match[1]) * 60 + parseFloat(match[2]);
-      lyrics.push({ time, text: match[3].trim() });
-    });
-    console.log("解析后歌词：", lyrics);
-  });
-
   </script>
 </body>
 </html>
