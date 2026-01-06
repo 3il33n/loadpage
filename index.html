@@ -25,6 +25,41 @@
       overflow: hidden;
     }
 
+.lyrics-ktv {
+  margin-top: 20px;
+  height: 80px;
+  position: relative;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.lyrics-ktv .line {
+  transition: color 0.2s;
+}
+
+#line1 {
+  text-align: left;
+  color: rgb(255, 255, 255, 0.8); /* 未高亮 */
+}
+
+#line2 {
+  text-align: right;
+  color: rgb(255, 255, 255, 0.8); /* 未高亮 */
+}
+
+.lyrics-ktv .highlight {
+  font-weight: 700;
+  background: linear-gradient(90deg, #fff, #ffe, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 6px #fff;
+}
+
     /* 背景相关 */
     .background-slideshow {
       position: fixed;
@@ -85,14 +120,14 @@
 
     .card {
       transform-origin: center top;
-      width: min(1250px, 97%);
+      width: min(1400px, 95%);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
       border-radius: var(--card-radius);
-      padding: 26px;
+      padding: 40px;
       box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
       backdrop-filter: blur(6px) saturate(1.08);
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 450px 1fr;
       gap: 20px;
       align-items: start;
       overflow: hidden;
@@ -289,11 +324,11 @@
     .music-player {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 12px;
-      padding: 8px;
+      gap: 16px;
+      margin-top: 20px;
+      padding: 12px;
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .music-player .cover img {
@@ -412,18 +447,27 @@
             </div>
           </div>
         </div>
-        <!-- 音乐播放器 -->
-        <div class="music-player">
-          <div class="cover">
-            <img src="images/music.jpg" alt="音乐封面">
-          </div>
-          <div class="controls">
-            <div class="info">
-              <span id="song-title">正在播放 "恋ひ恋ふ縁"</span>
-              <span id="song-time">0:00 / 0:00</span>
-            </div>
-            <div class="progress-music">
-              <div class="bar" id="music-bar"></div>
+<!-- 音乐播放器 -->
+<div class="music-player">
+  <div class="cover">
+    <img src="images/music.jpg" alt="音乐封面">
+  </div>
+  <div class="controls">
+    <div class="info">
+      <span id="song-title">正在播放 "恋ひ恋ふ縁"</span>
+      <span id="song-time">0:00 / 0:00</span>
+    </div>
+    <div class="progress-music">
+      <div class="bar" id="music-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- KTV 歌词区域 -->
+<div class="lyrics-ktv" id="lyrics">
+  <div class="line" id="line1"></div>
+  <div class="line" id="line2"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -589,17 +633,77 @@
 
     const audio = document.getElementById("bgm");
     audio.volume = 0.1; 
+
+(function () {
+  const audio = document.getElementById("bgm");
+  const line1El = document.getElementById("line1");
+  const line2El = document.getElementById("line2");
+
+  const lrcFile = 'images/music.lrc'; // 外部 LRC 文件路径
+
+  fetch(lrcFile)
+    .then(res => res.text())
+    .then(lrcText => {
+      // 解析歌词
+      const lyrics = [];
+      lrcText.trim().split("\n").forEach(line => {
+        const match = line.match(/\[(\d+):(\d+\.\d+)\](.+)/);
+        if (!match) return;
+        const time = parseInt(match[1]) * 60 + parseFloat(match[2]);
+        lyrics.push({ time, text: match[3].trim() });
+      });
+
+      let currentIndex = 0;
+
+      function updateLyrics() {
+        const t = audio.currentTime;
+
+        // 找到当前正在唱的句
+        while (currentIndex < lyrics.length - 1 && t >= lyrics[currentIndex + 1].time) {
+          currentIndex++;
+        }
+
+        // 左上角显示奇数句，右下角显示下一句
+        const leftIndex = currentIndex % 2 === 0 ? currentIndex : currentIndex - 1;
+        const rightIndex = leftIndex + 1;
+
+        // 设置文本和高亮
+        line1El.textContent = lyrics[leftIndex]?.text || '';
+        line2El.textContent = lyrics[rightIndex]?.text || '';
+
+        // 高亮当前唱的句
+        if (currentIndex === leftIndex) {
+          line1El.classList.add('highlight');
+          line2El.classList.remove('highlight');
+        } else if (currentIndex === rightIndex) {
+          line2El.classList.add('highlight');
+          line1El.classList.remove('highlight');
+        } else {
+          line1El.classList.remove('highlight');
+          line2El.classList.remove('highlight');
+        }
+      }
+
+      audio.addEventListener("timeupdate", updateLyrics);
+    })
+    .catch(err => {
+      console.error("歌词加载失败:", err);
+    });
+})();
+    fetch(lrcFile)
+  .then(res => res.text())
+  .then(lrcText => {
+    console.log("LRC 内容：", lrcText);
+    const lyrics = [];
+    lrcText.trim().split("\n").forEach(line => {
+      const match = line.match(/\[(\d+):(\d+\.\d+)\](.+)/);
+      if (!match) return;
+      const time = parseInt(match[1]) * 60 + parseFloat(match[2]);
+      lyrics.push({ time, text: match[3].trim() });
+    });
+    console.log("解析后歌词：", lyrics);
+  });
+
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
