@@ -426,8 +426,6 @@
 /* ===== 刘德华 ===== */
 .fortune-kid {
   position: fixed;
-  right: 120px;
-  bottom: 350px;
   width: 250px;
   z-index: 6;
   pointer-events: none;
@@ -914,8 +912,8 @@
     lanternRight.style.left = (cardRect.right - 200) + 'px';
 
     // 刘德华小人
+    fortuneKid.style.top = (cardRect.top + 450) + 'px';
     fortuneKid.style.left = (cardRect.left - fortuneKid.offsetWidth + 400) + 'px';
-    fortuneKid.style.top = (cardRect.top - fortuneKid.offsetHeight + 450) + 'px';
 
     // 春联
     coupletLeft.style.top = cardRect.top + 0 + 'px';
@@ -936,7 +934,7 @@
   // 窗口大小改变时更新
   window.addEventListener('resize', alignDecorations);
 })();
-
+setTimeout(alignDecorations, 200); // 等 200ms 等布局稳定
 
   </script>
 </body>
