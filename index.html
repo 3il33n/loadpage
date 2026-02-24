@@ -27,7 +27,6 @@
 
 .lyrics-ktv {
   margin-top: 20px;
-  border: 1px solid rgba(255, 215, 120, 0.25);
   height: 80px;
   position: relative;
   font-size: 24px;
@@ -37,9 +36,6 @@
   padding: 10px 20px;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
-   box-shadow:
-    0 0 20px rgba(255, 100, 80, 0.15),
-    inset 0 0 12px rgba(255, 180, 80, 0.08);
 }
 
 .lyrics-ktv .line {
@@ -58,10 +54,10 @@
 
 .lyrics-ktv .highlight {
   font-weight: 700;
-  background: linear-gradient(90deg, #ffd36a, #ff4d4f, #ffd36a);
+  background: linear-gradient(90deg, #fff, #ffe, #fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(255, 200, 120, 0.8);
+  text-shadow: 0 0 6px #fff;
 }
 
     /* 背景相关 */
@@ -97,17 +93,12 @@
 }
 
 
-.server-title h1 {
-  font-size: 3.5rem;
-  margin: 0 0 5px 0;
-  letter-spacing: 2px;
-  background: linear-gradient(90deg, #ffd36a, #ff4d4f, #ffd36a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:
-    0 0 20px rgba(255, 180, 80, 0.6),
-    0 0 40px rgba(255, 80, 60, 0.4);
-}
+    .server-title h1 {
+      font-size: 3.5rem;
+      margin: 0 0 5px 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1px;
+    }
 
 
     .server-title .subtitle {
@@ -284,11 +275,11 @@
   width: 0%;
   background: linear-gradient(
     90deg,
-    #ff4d4f,
-    #ffd36a,
-    #ff7875
+    #ffffff,
+    #afafaf,
+    #ffffff
   );
-  box-shadow: 0 0 10px rgba(255, 180, 80, 0.6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   transition: width 300ms ease;
 }
 
@@ -383,149 +374,10 @@
       background: var(--accent);
       transition: width 0.2s linear;
     }
-    /* ===== 春节装饰层 ===== */
-.spring-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* 灯笼 */
-.lantern {
-  position: absolute;
-  top: 450px;
-  width: 180px;
-  opacity: 0.9;
-  filter:
-    drop-shadow(0 0 12px rgba(255, 80, 60, 0.6))
-    drop-shadow(0 0 30px rgba(255, 160, 80, 0.35));
-  animation: lantern-float 4s ease-in-out infinite;
-}
-
-.lantern.left {
-  left: 555px;
-}
-
-.lantern.right {
-  right: 555px;
-  animation-delay: 2s;
-}
-
-@keyframes lantern-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(12px); }
-}
-
-
-@keyframes glow {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
-}
-
-/* ===== 刘德华 ===== */
-.fortune-kid {
-  position: fixed;
-  width: 250px;
-  z-index: 6;
-  pointer-events: none;
-
-  animation: kid-bounce 3.2s ease-in-out infinite;
-  filter:
-    drop-shadow(0 0 12px rgba(255, 120, 80, 0.5))
-    drop-shadow(0 0 28px rgba(255, 200, 120, 0.35));
-}
-
-@keyframes kid-bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-#spring-particles {
-  position: fixed;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-}
-/* ===== 春联 ===== */
-.couplet {
-  position: fixed;
-  top: 46%;
-  width: 48px;
-  height: 500px;
-  background: linear-gradient(180deg, #c40000, #ff4d4f);
-  border-radius: 6px;
-  z-index: 6;
-  display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center;     /* 垂直居中 */
-  padding: 0;              /* 移除顶部 padding，影响居中 */
-  box-shadow: 0 0 20px rgba(255, 80, 60, 0.4);
-}
-
-
-.couplet.left { left: 540px; }
-.couplet.right { right: 540px; }
-
-.couplet span {
-  writing-mode: vertical-rl;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #ffd36a;
-  text-shadow: 0 0 8px rgba(255, 220, 150, 0.8);
-}
-
-/* 横批 */
-.couplet-top {
-  position: fixed;
-  top: 465px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, #c40000, #ff7875);
-  padding: 8px 24px;
-  border-radius: 6px;
-  z-index: 6;
-  box-shadow: 0 0 20px rgba(255, 120, 80, 0.4);
-}
-
-.couplet-top span {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 6px;
-  color: #ffd36a;
-}
-
-
-
   </style>
 </head>
 
 <body>
-  <!-- 春联 -->
-<div class="couplet left">
-  <span>千峰裂夜 分裂者开万世幕 破晓擎天</span>
-</div>
-<div class="couplet right">
-  <span>五岳聚灵 山河志启七星灯 封邪镇祟</span>
-</div>
-<div class="couplet-top">
-  <span>界分道合</span>
-</div>
-
-  <!-- 春节装饰层 -->
-   <canvas id="spring-particles"></canvas>
-<div class="spring-layer">
-  <img class="lantern left" src="images/lantern.png">
-  <img class="lantern right" src="images/lantern.png">
-  </div>
-</div>
-<!-- 刘德华 -->
-<img src="images/liudehua.png" class="fortune-kid" alt="恭喜发财">
-
   <div class="background-slideshow"></div>
   <div class="server-title">
     <h1>[RICE]小饭堂SCP服务器</h1>
@@ -842,101 +694,30 @@
   xhr.send();
 })();
 
-(() => {
-  const canvas = document.getElementById("spring-particles");
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  const particles = Array.from({ length: 80 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 4 + 2,
-    speed: Math.random() * 0.6 + 0.4,
-    sway: Math.random() * 1.5
-  }));
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-      p.y += p.speed;
-      p.x += Math.sin(p.y * 0.01) * p.sway;
-
-      if (p.y > canvas.height) {
-        p.y = -10;
-        p.x = Math.random() * canvas.width;
-      }
-
-      ctx.beginPath();
-      ctx.fillStyle = "rgba(255, 215, 120, 0.8)";
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = "rgba(255, 200, 100, 0.8)";
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-})();
+// 保留的定位脚本 - 仅用于标题定位
 (function() {
   const card = document.querySelector('.card');
   const serverTitle = document.querySelector('.server-title');
-  const lanternLeft = document.querySelector('.lantern.left');
-  const lanternRight = document.querySelector('.lantern.right');
-  const fortuneKid = document.querySelector('.fortune-kid');
-  const coupletLeft = document.querySelector('.couplet.left');
-  const coupletRight = document.querySelector('.couplet.right');
-  const coupletTop = document.querySelector('.couplet-top');
 
-  function alignDecorations() {
+  function alignTitle() {
     const cardRect = card.getBoundingClientRect();
-
+    
     // 标题对齐卡片顶部
     serverTitle.style.top = (cardRect.top - serverTitle.offsetHeight - 80) + 'px';
     serverTitle.style.left = cardRect.left + cardRect.width / 2 + 'px';
     serverTitle.style.transform = 'translateX(-50%)';
-
-    // 灯笼在卡片两侧
-    lanternLeft.style.top = cardRect.top + 0 + 'px';
-    lanternLeft.style.left = (cardRect.left - lanternLeft.offsetWidth + 200) + 'px';
-
-    lanternRight.style.top = cardRect.top + 0 + 'px';
-    lanternRight.style.left = (cardRect.right - 200) + 'px';
-
-    // 刘德华小人
-    fortuneKid.style.top = (cardRect.top + 450) + 'px';
-    fortuneKid.style.left = (cardRect.left - fortuneKid.offsetWidth + 400) + 'px';
-
-    // 春联
-    coupletLeft.style.top = cardRect.top + 0 + 'px';
-    coupletLeft.style.left = (cardRect.left - coupletLeft.offsetWidth + 50) + 'px';
-
-    coupletRight.style.top = cardRect.top + 0 + 'px';
-    coupletRight.style.left = (cardRect.right - 50) + 'px';
-
-    // 横批
-    coupletTop.style.top = (cardRect.top + 0) + 'px';
-    coupletTop.style.left = cardRect.left + cardRect.width / 2 + 'px';
-    coupletTop.style.transform = 'translateX(-50%)';
   }
 
   // 初始化
-  alignDecorations();
+  alignTitle();
 
   // 窗口大小改变时更新
-  window.addEventListener('resize', alignDecorations);
+  window.addEventListener('resize', alignTitle);
+  
+  // 等 200ms 等布局稳定
+  setTimeout(alignTitle, 200);
 })();
-setTimeout(alignDecorations, 200); // 等 200ms 等布局稳定
 
   </script>
 </body>
 </html>
-
