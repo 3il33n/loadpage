@@ -496,7 +496,8 @@
             'images/bg16.jpg', 'images/bg17.jpg', 'images/bg18.jpg',
             'images/bg19.jpg', 'images/bg20.jpg', 'images/bg21.jpg',
             'images/bg22.jpg', 'images/bg23.jpg', 'images/bg24.jpg',
-            'images/bg25.jpg'
+            'images/bg25.jpg', 'images/bg26.jpg', 'images/bg27.jpg',
+            'images/bg28.jpg'
         ];
         
         bgImages.forEach(src => {
@@ -515,14 +516,21 @@
                     "images/bg16.jpg", "images/bg17.jpg", "images/bg18.jpg",
                     "images/bg19.jpg", "images/bg20.jpg", "images/bg21.jpg",
                     "images/bg22.jpg", "images/bg23.jpg", "images/bg24.jpg",
-                    "images/bg25.jpg"
+                    "images/bg25.jpg", "images/bg26.jpg", "images/bg27.jpg",
+                    "images/bg28.jpg"
                    ];
-    let current = 0;
+    let lastIndex = -1;;
 
-    function changeBackground() {
-      bg.style.backgroundImage = `url("${images[current]}")`;
-      current = (current + 1) % images.length;
-    }
+function changeBackground() {
+  let randomIndex;
+
+  do {
+    randomIndex = Math.floor(Math.random() * images.length);
+  } while (randomIndex === lastIndex);
+
+  lastIndex = randomIndex;
+  bg.style.backgroundImage = `url("${images[randomIndex]}")`;
+}
     changeBackground();
     setInterval(changeBackground, 6000);
 
